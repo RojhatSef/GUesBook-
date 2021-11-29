@@ -1,0 +1,22 @@
+{
+  "name": "empty",
+  "version": "1.0.0",
+  "description": "Java, Node,APi",
+  "main": "Guest.js",
+  "scripts": {
+    "test": "testGuest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RojhatSef/GUesBook-.git"
+  },
+  "keywords": [
+    "Testing"
+  ],
+  "author": "Rojhat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RojhatSef/GUesBook-/issues"
+  },
+  "homepage": "https://github.com/RojhatSef/GUesBook-#readme"
+}
