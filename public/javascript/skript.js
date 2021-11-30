@@ -1,0 +1,1 @@
+alert("Hej från externt klientsidesskipt!");
