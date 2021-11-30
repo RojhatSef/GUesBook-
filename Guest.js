@@ -1,20 +1,10 @@
 const express = require("express");
 const app = express();
-app.get("/", (req, res) => {    // likvärdigt som "app.get("/", function(req, res) {"
-  
-    res.write("Hallå ");
-    res.write("på ");
-    res.write("dig ");
-    // funkar, men header-information funkar inte
-    //res.write(" Hej igen?");    // 'ERR_STREAM_WRITE_AFTER_END'
-    res.send(" Hej igen?");       // Cannot set headers after they are sent to the client
-  
-   // serva statisk html-sida, notera att filnamnet "exempel.html" inte syns i URL:en; __dirname hänvisar till sökvägen som serverskriptet index.js finns i
-});
+
 app.listen(3000);   // lyssnar på port 3000
 console.log("Kör servern på localhost:3000");
 app.use(express.static("public"));
-let fs = require("fs"); // installera med "npm install fs" ifall ni får felmeddelanden här
+let fs = require("fs"); 
 app.get("/besokare", (req, res) => {
     fs.readFile("besokare.txt", (err, data) => {    // första argumentet är filnamnet, andra argumentet är en funktion (callback)
         // callback-funktionen har i sin tur två argument: ett objekt med information om eventuella fel och ett objekt med data som lästs in
@@ -33,35 +23,36 @@ app.get("/form", (req, res) => {
     res.sendFile(__dirname + "/form.html"); // liknande som ovan
 });
 app.use(express.urlencoded());
-
 app.post("/skriva-fil", (req, res) => {
 
     let meddelande = req.body.meddelande;
+    let name = req.body.nameInput
+let family = req.body.familyInput 
+let phoneInput = req.body.phoneInput
+let email = req.body.emailInput
 
-    meddelande += "\n";
+    meddelande += "\n<br>";
 
-    fs.appendFile("meddelanden.txt", meddelande, (err)=> {
-
-        if (err) throw err;
-
-    });
-
-
-
-
-    fs.readFile("meddelanden.txt",(err, data) =>{
+    fs.appendFile("meddelanden.txt", meddelande, name, family, phoneInput, email, (err)=> {
 
         if (err) throw err;
+        fs.readFile("meddelanden.txt",(err, data) =>{
 
-        console.log(data.toString());
+            if (err) throw err;
 
-        let content = data.toString();
+            console.log(data.toString());
 
-        res.send(`Innehåll av ${content}`);
+            let content = data.toString();
+
+            res.send(`Innehåll av filen: <br> ${content}`);    
+
+        });
 
     });
 
 });
+   
+
 /*
 app.post("/skriva-fil", (req, res) => {
     let meddelande = req.body.meddelande;
