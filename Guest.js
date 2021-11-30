@@ -28,9 +28,41 @@ app.get("/besokare", (req, res) => {
         res.send(`Denna sida har laddats ${antal} gånger`);
     });
 });
+
 app.get("/form", (req, res) => {
     res.sendFile(__dirname + "/form.html"); // liknande som ovan
 });
+app.use(express.urlencoded());
+
+app.post("/skriva-fil", (req, res) => {
+
+    let meddelande = req.body.meddelande;
+
+    meddelande += "\n";
+
+    fs.appendFile("meddelanden.txt", meddelande, (err)=> {
+
+        if (err) throw err;
+
+    });
+
+
+
+
+    fs.readFile("meddelanden.txt",(err, data) =>{
+
+        if (err) throw err;
+
+        console.log(data.toString());
+
+        let content = data.toString();
+
+        res.send(`Innehåll av ${content}`);
+
+    });
+
+});
+/*
 app.post("/skriva-fil", (req, res) => {
     let meddelande = req.body.meddelande;
     meddelande += "\n"; // lägg till en radbrytning mellan varje meddelande
@@ -38,4 +70,33 @@ app.post("/skriva-fil", (req, res) => {
         if(err) throw err;
     });
     res.send(`Skrev till fil: ${meddelande}`);
-});
+    fs.readFile("meddelanden.txt", "utf8", (err, data) =>{
+        console.log(data); 
+    }); 
+    fs.readFile("meddelanden.txt",(err, data) =>{
+
+        if (err) throw err;
+
+        console.log(data.toString());
+
+        let content = data.toString();
+
+        res.send(`Innehåll av ${content}`);
+
+    });
+
+});/*
+app.get("meddelanden.txt", (req, res) => {
+    fs.readFile("meddelanden.txt", (err, data) =>{
+        if(err) throw err;
+        let fullstring =(data.toString());
+        fullstring +="\n";
+        fullstring = fullstring.toString();
+        fs.writeFile("meddelanden.txt", fullstring, (err) =>{
+            if (err) throw err;
+
+        });
+        res.send(`Let ${fullstring}`)
+    })
+    
+}) */
