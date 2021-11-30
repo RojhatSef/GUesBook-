@@ -12,8 +12,23 @@
 
     <h1>Skriva till textfil från formulär</h1>
     <form action="/skriva-fil" method="post">
+
+        <label for="nameField">Name:</label>
+        <input type="text" id="nameField" class="nameField">
+        <br> <br>
+        <label for="familyNameField">Family Name:</label>
+        <input type="text" id="familyNameField" class="familyNameField">
+        <br> <br>
+        <label for="phoneNumber">Telephone Number:</label>
+        <input type="text" id="PhoneNumber" class="PhoneNumber">
+        <br> <br>
+        <label for="email">Email: </label>
+        <input type="text" id="emailId" class="emailClass"><br>
+        <br>
+        <br>
         <label>Skriv något:</label><br><textarea name="meddelande"></textarea><br>
         <input type="submit">
+
     </form>
 
 </body>

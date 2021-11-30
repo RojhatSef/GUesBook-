@@ -14,9 +14,8 @@ app.get("/", (req, res) => {    // likvärdigt som "app.get("/", function(req, r
 });
 app.listen(3000);   // lyssnar på port 3000
 console.log("Kör servern på localhost:3000");
-
 // för att servern ska kunna hitta filer som klientsidesskript, css-filer eller bildfiler måste man serva en publik mapp
-app.use(express.static("public"));
+app.use(express.static("publik"));
 
 // filhantering: en enkel besöksräknare
 let fs = require("fs"); // installera med "npm install fs" ifall ni får felmeddelanden här
@@ -27,6 +26,7 @@ app.get("/besokare", (req, res) => {
         //else console.log(err);  // null om inget fel inträffat
         let antal = Number(data.toString());
         antal++;
+        antal = antal.toString();
         fs.writeFile("besokare.txt", antal, (err) => {
             if (err) throw err;
         });

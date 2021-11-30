@@ -13,7 +13,6 @@ app.get("/", (req, res) => {    // likvärdigt som "app.get("/", function(req, r
 });
 app.listen(3000);   // lyssnar på port 3000
 console.log("Kör servern på localhost:3000");
-
 app.use(express.static("public"));
 let fs = require("fs"); // installera med "npm install fs" ifall ni får felmeddelanden här
 app.get("/besokare", (req, res) => {
@@ -29,4 +28,14 @@ app.get("/besokare", (req, res) => {
         res.send(`Denna sida har laddats ${antal} gånger`);
     });
 });
-
+app.get("/form", (req, res) => {
+    res.sendFile(__dirname + "/form.html"); // liknande som ovan
+});
+app.post("/skriva-fil", (req, res) => {
+    let meddelande = req.body.meddelande;
+    meddelande += "\n"; // lägg till en radbrytning mellan varje meddelande
+    fs.appendFile("meddelanden.txt", meddelande, (err) => { // OBS - skapar filen om den inte redan finns, lägger annars till befintlig text
+        if(err) throw err;
+    });
+    res.send(`Skrev till fil: ${meddelande}`);
+});
