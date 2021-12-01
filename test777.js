@@ -8,11 +8,11 @@ console.log("Just testing if it works");
 app.use(express.static("public"));
 let fs = require("fs"); 
 // we parse our guest input and make it readble with json.parse instead of machine code
-const guest = (JSON.parse(fs.readFileSync('guestbook.json')));
+const guest = (JSON.parse(fs.readFileSync('meddelanden.json')));
 console.log(guest); 
 // we get our data from form 
-app.get("/form", (req, res) => {
-    res.sendFile(__dirname + "/form.html"); 
+app.get("/html/form", (req, res) => {
+    res.sendFile(__dirname + "/html/form.html"); 
 });
 // we need express.urlendecoded for post 
 app.use(express.urlencoded());
@@ -22,13 +22,15 @@ app.post("/formInput", (req, res) => {
     let newUser = {
     name: req.body.nameInput,
     family: req.body.familyInput,
+    child: req.body.child,
+    reason: req.body.reason,
     phoneInput: req.body.phoneInput,
     email: req.body.email,
     meddelande: req.body.meddelande }
     // we give guest the inputs from users with guest.push
    guest.push(newUser); 
    console.log(guest);  // addes a block of string to the guestbook.json name,family,phone, and email.
-   fs.writeFileSync('guestbook.json', JSON.stringify(guest, null, 4))
+   fs.writeFileSync('meddelanden.json', JSON.stringify(guest, null, 4))
    // sends us to an empty page of whatever we want it to be called. 
    res.redirect('/create'); 
  });

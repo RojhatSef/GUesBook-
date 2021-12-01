@@ -1,9 +1,23 @@
 [
     {
-        "name": "55",
+        "name": "555",
         "family": "55",
-        "phoneInput": "5",
+        "phoneInput": "555",
         "email": "Rojhat10@hotmail.com",
-        "meddelande": "321"
+        "meddelande": "312321"
+    },
+    {
+        "name": "Rojvan",
+        "family": "Sefdin",
+        "phoneInput": "07777",
+        "email": "Rojvan@hotmail.com",
+        "meddelande": "HejHej"
+    },
+    {
+        "name": "MyNameIS",
+        "family": "Lagna",
+        "phoneInput": "889998",
+        "email": "Barosh@hotmail.com",
+        "meddelande": "Snart"
     }
 ]
