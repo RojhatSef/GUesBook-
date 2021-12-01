@@ -1,12 +1,14 @@
-
 const express = require("express");
 const app = express();
+// const XMLHttpRequest = require('xhr2'); 
+// const xhr = new XMLHttpRequest();
 //open the server at localhost/3000 
 app.listen(3000);   // lyssnar på port 3000
 console.log("Kör servern på localhost:3000");
 // open a public map for a global reach
 app.use(express.static("public"));
 let fs = require("fs"); 
+const { response } = require("express");
 // we parse our guest input and make it readble with json.parse instead of machine code
 const guest = (JSON.parse(fs.readFileSync('guestbook.json')));
 console.log(guest); 
@@ -32,9 +34,20 @@ app.post("/formInput", (req, res) => {
    fs.writeFileSync('guestbook.json', JSON.stringify(guest, null, 4))
    res.redirect('/java'); 
  });
- app.get('/java', function (req, res) {   
-    res.send(guest); 
+
+//app.post('./formInput')
+ app.get('/java', function (req, res) {  
+    // TESTAR DETTA
+    // xhr.onload = function(){
+    //     console.log(this.responseText);
+    // };  
+    // xhr.open('get', 'guestbook.json'); 
+    // xhr.send();
+   
+   res.send(guest); 
 });
+
+
 
 
   
