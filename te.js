@@ -1,4 +1,4 @@
-const { json } = require("express");
+
 const express = require("express");
 const app = express();
 //open the server at localhost/3000 
@@ -10,12 +10,13 @@ let fs = require("fs");
 // we parse our guest input and make it readble with json.parse instead of machine code
 const guest = (JSON.parse(fs.readFileSync('guestbook.json')));
 console.log(guest); 
-// we get our data from form 
-app.get("/form", (req, res) => {
-    res.sendFile(__dirname + "/form.html"); 
+// to be able to reach ra, we use get and where the file is with send 
+app.get("/ra", (req, res) => {
+    res.sendFile(__dirname + "/ra.html"); 
 });
 // we need express.urlendecoded for post 
 app.use(express.urlencoded());
+// forminput is used from action in html to get our inputs
 app.post("/formInput", (req, res) => {
 
     // we make an object with all inputs from the users. 
@@ -27,14 +28,11 @@ app.post("/formInput", (req, res) => {
     meddelande: req.body.meddelande }
     // we give guest the inputs from users with guest.push
    guest.push(newUser); 
-   console.log(guest);  // addes a block of string to the guestbook.json name,family,phone, and email.
+   console.log(guest); 
    fs.writeFileSync('guestbook.json', JSON.stringify(guest, null, 4))
-   // sends us to an empty page of whatever we want it to be called. 
-   res.redirect('/create'); 
+   res.redirect('/java'); 
  });
- // after we redirect user to create, we then post our block of strings into the webpage.
- app.get('/create', function (req, res) {   
-
+ app.get('/java', function (req, res) {   
     res.send(guest); 
 });
 

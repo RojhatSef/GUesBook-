@@ -1,41 +1,58 @@
-const { json } = require("express");
+const fs = require('fs');
 const express = require("express");
+const { urlencoded } = require('express');
 const app = express();
-//open the server at localhost/3000 
-app.listen(3000);   // lyssnar på port 3000
-console.log("Kör servern på localhost:3000");
-// open a public map for a global reach
-app.use(express.static("public"));
-let fs = require("fs"); 
-// we parse our guest input and make it readble with json.parse instead of machine code
-const guest = (JSON.parse(fs.readFileSync('guestbook.json')));
-console.log(guest); 
-// we get our data from form 
-app.get("/form", (req, res) => {
-    res.sendFile(__dirname + "/form.html"); 
-});
-// we need express.urlendecoded for post 
-app.use(express.urlencoded());
-app.post("/skriva-fil", (req, res) => {
+app.listen(3000);
 
-    // we make an object with all inputs from the users. 
-    let newUser = {
-    name: req.body.nameInput,
-    family: req.body.familyInput,
-    phoneInput: req.body.phoneInput,
-    email: req.body.email,
-    meddelande: req.body.meddelande }
-    // we give guest the inputs from users with guest.push
-   guest.push(newUser); 
-   console.log(guest); 
-   fs.writeFileSync('guestbook.json', JSON.stringify(guest, null, 4))
-   res.redirect('/skapa'); 
- });
- app.get('/skapa', function (req, res) {   
+function jsonReader(filepath, cb){
+    fs.readFile(filepath, 'utf-8', (err, filedata)=>{
+        if(err){
+            return cb && cb(err);
+        }try{
+            const object = JSON.parse(filedata);  
+            return cb && cb(null, object); 
+        }catch(err){
+            return cb&& cb(err); 
 
-    res.send(guest); 
-});
+        }
+    }); 
+} 
+
+jsonReader('./box.json',(err, data) =>{
+if(err){
+    console.log(err);
+    
+}else{
+
+    fs.writeFile('./box.json', JSON.stringify(data), err =>{
+        if(err){
+            console.log(err);
+        
+        }
+    }); 
+}
+}); 
 
 
+const readingGuest = (JSON.parse(fs.readFileSync('box.json')))
+app.use(express.urlencoded);
+app.post("/new", (req, res)=>{
 
-  
+    object = {
+        new: 'Newbie corp',
+    order_counter: 83,
+    adress: 'Po box city'
+    }
+    readingGuest.push(object); 
+    console.log(readingGuest); 
+    fs.writeFile('./box.json', JSON.stringify(readingGuest, null, 4), err =>{
+        if(err){
+            console.log(err);
+        }
+        else{  
+            console.log('sucessfully written');
+        }
+    });  console.log(readingGuest);
+
+})
+
