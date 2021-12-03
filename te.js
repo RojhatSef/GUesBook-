@@ -65,7 +65,3 @@ app.get("/", (req, res) => {
     //res.send(guest[0].name); // ersätt "attribut.value" med vad du nu har för data
 
 });
-
-
-
-
