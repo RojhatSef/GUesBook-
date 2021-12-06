@@ -15,7 +15,8 @@ app.get("/form", (req, res) => {
     res.sendFile(__dirname + "/form.html"); 
 });
 // we need express.urlendecoded for post 
-app.use(express.urlencoded());
+
+app.use(express.urlencoded({extended: true}));
 app.post("/formInput", (req, res) => {
 
     // we make an object with all inputs from the users. 

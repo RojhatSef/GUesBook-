@@ -26,5 +26,26 @@
         "phoneInput": "3123123122",
         "email": "roaoaoa@hotmail.com",
         "meddelande": "32312312312312"
+    },
+    {
+        "name": "dsadas",
+        "family": "dasdas",
+        "phoneInput": "3213",
+        "email": "Rosh@hotmail.com",
+        "meddelande": "333"
+    },
+    {
+        "name": "&lt;h1>hello World&lt;/h1>",
+        "family": "dasdas",
+        "phoneInput": "321312312",
+        "email": "Rojh@hotmail.com",
+        "meddelande": "21312"
+    },
+    {
+        "name": "xzdsa",
+        "family": "dasdas2",
+        "phoneInput": "333",
+        "email": "Rojhat10@hotmail.com",
+        "meddelande": "Rojhat\r\n"
     }
 ]

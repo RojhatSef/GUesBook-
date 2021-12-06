@@ -18,26 +18,24 @@ app.get("/ra", (req, res) => {
     res.sendFile(__dirname + "/ra.html"); 
 });
 // we need express.urlendecoded for post 
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
 // forminput is used from action in html to get our inputs
 app.post("/formInput", (req, res) => {
 
     // we make an object with all inputs from the users. 
     let newUser = {
-    name: req.body.nameInput,
-    family: req.body.familyInput,
-    phoneInput: req.body.phoneInput,
-    email: req.body.email,
-    meddelande: req.body.meddelande }
-    // we give guest the inputs from users with guest.push
+    name: req.body.nameInput.replace(/</g, '&lt;'),
+    family: req.body.familyInput.replace(/</g, '&lt;'),
+    phoneInput: req.body.phoneInput.replace(/</g, '&lt;'),
+    email: req.body.email.replace(/</g, '&lt;'),
+    meddelande: req.body.meddelande.replace(/</g, '&lt;') }
+    // newUser = newUser.replace(/</g, '&lt;'); 
+    // we give guest the inputs from users with guest.push str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
    guest.push(newUser); 
    console.log(guest); 
    fs.writeFileSync('guestbook.json', JSON.stringify(guest, null, 4))
    res.redirect('/'); 
  });
-
- 
-//app.post('./formInput')
 app.get("/", (req, res) => {
 
     const guest = (JSON.parse(fs.readFileSync('guestbook.json')));
